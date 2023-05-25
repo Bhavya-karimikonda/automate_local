@@ -1,28 +1,35 @@
- package automate_onboarding;
+package automate_onboarding;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+
 // Running without Automate
-public class BaseClass{
+
+public class BaseClass2{
 	
 	public WebDriver driver;
+
 	@BeforeSuite
-   public void setUp() throws Exception {
-       ChromeOptions options = new ChromeOptions();
-       options.addArguments("start-maximized");
-       driver = new ChromeDriver(options);
-       driver.manage().window().maximize();
-       driver.get("https://www.browserstack.com/users/sign_in");
-      // Thread.sleep(25000);
-   }
-    
+    public void setUp() throws Exception {
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("start-maximized");
+        driver = new FirefoxDriver(options);
+        driver.manage().window().maximize();
+        driver.get("https://www.browserstack.com/users/sign_in");
+       // Thread.sleep(25000);
+    }
+   
 	
     @Test(priority=1)
     public void LogintoPortal() throws InterruptedException {
@@ -55,21 +62,7 @@ public class BaseClass{
     		Thread.sleep(5000);
     }
     
-	@Test(priority=4)
-	    public void LoginNegativeTest() throws InterruptedException {
-			 driver.quit();
-			 ChromeOptions options = new ChromeOptions();
-		     options.addArguments("start-maximized");
-		     driver = new ChromeDriver(options);
-		     driver.manage().window().maximize();
-	    	 Thread.sleep(1000);
-	         driver.findElement(By.id("user_email_login")).sendKeys("bhavykarimikonda98@gmail.com");
-	         driver.findElement(By.id("user_password")).sendKeys("invalidpassword");
-	         driver.findElement(By.id("user_submit")).click();
-	    	 String errMsg = "Invalid password" ;
-	    	 String checkErrMsg = driver.findElement(By.xpath("/html/body/main/div[4]/section/form/div[1]/div/div[1]/fieldset/div[5]/div/div/div/span")).getText();
-	    	 assert errMsg.equals(checkErrMsg);
-	    }
+
 
 	@AfterSuite
     public void tearDown() throws Exception {
